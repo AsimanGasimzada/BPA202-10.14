@@ -1,145 +1,129 @@
-﻿////Stringin Trim methodunu custom yazin, bize verilen deyerdeki evveldeki ve sondaki bosluqlari silin
+﻿int[] numbers = [1, 2, 3, 4, 5];
+//int[] newNumbers = RemoveElement(numbers, 22);
+int[] newNumbers = Add(numbers, 6);
+newNumbers = Add(newNumbers, 7);
+newNumbers = Add(newNumbers, 8);
 
+newNumbers = Remove(newNumbers, 3);
+newNumbers = Remove(newNumbers, 3);
+newNumbers = Remove(newNumbers, 4);
+newNumbers = Remove(newNumbers, 5);
 
-//string word = "----Salam   Hamiya-----";
-//char trimChar = '-';
+foreach (var item in newNumbers)
+    Console.WriteLine(item);
 
-//Console.WriteLine(word.Trim('-'));
+//int max = FindMax(numbers);
+//int min = FindMin(numbers);
+//Console.WriteLine(max);
+//Console.WriteLine(min);
 
+//string[] names = ["Tom", "Bob", "Sam"];
+//string[] newNames = CopyArray(names);
 
-
-////for (int i = 0; i < word.Length; i++)
-////{
-////    if (word[i]!=' ')
-////        Console.Write(word[i]);
-////}
-
-//int startIndex = 0;//4
-//int endIndex = word.Length - 1;//12
-
-//for (int i = 0; i < word.Length; i++)
-//{
-//    if (word[i] != trimChar)
-//    {
-//        startIndex = i;
-//        break;
-//    }
-//}
-
-
-//for (int i = word.Length - 1; i >= startIndex; i--)
-//{
-//    if (word[i] != trimChar)
-//    {
-//        endIndex = i;
-//        break;
-//    }
-//}
-
-//string newWord = "";
-//for (int i = startIndex; i <= endIndex; i++)
-//{
-//    newWord += word[i];
-//}
-
-
-//Console.WriteLine(newWord);
+//foreach (var item in newNames)
+//    Console.WriteLine(item);
 
 
 
-//Stringin split methodunu custom yazin, bize bir string verilir ve bu stringi hansi simvola
-//gore bolmeliyem o verilir yekunda mene array qayidir mes: “Hello World !” ⇒‘ ’⇒[”Hello”,”World”,”!”]
-
-
-//string sentence = "   Salam21312#!#@!#@ World !";
-//char splitChar = ' ';
-//string[] words = [];
-
-//string firstWord = "";
-//int firstIndex = 0;
-//int lastIndex = 0;
-
-//for (int i = 0; i < sentence.Length; i++)
-//{
-//    if (sentence[i] != splitChar)
-//    {
-//        firstIndex = i;
-//        break;
-//    }
-//}
-
-//for (int i = firstIndex; i < sentence.Length; i++)
-//{
-//    if (sentence[i] == splitChar)
-//    {
-//        lastIndex = i - 1;
-//        break;
-//    }
-//}
-
-//for (int i = firstIndex; i <= lastIndex; i++)
-//{
-//    firstWord += sentence[i];
-//}
-
-//Array.Resize(ref words, words.Length + 1);
-//words[^1] = firstWord;
-
-//Console.WriteLine(words[0]);
-
-
-
-string sentence = "   Salam21312#!#@!#@ World !     213321321  213  ";
-char splitChar = ' ';
-string[] words = [];
-int firstIndex = 0;
-int lastIndex = 0;
-
-while (lastIndex<sentence.Length)
+static int[] Add(int[] array, int element)
 {
-    string word = "";
-
-    for (int i = firstIndex; i < sentence.Length; i++)
-    {
-        if (sentence[i] != splitChar)
-        {
-            firstIndex = i;
-            break;
-        }
-    }
-
-    for (int i = firstIndex; i < sentence.Length; i++)
-    {
-        if (sentence[i] == splitChar)
-        {
-            lastIndex = i - 1;
-            break;
-        }
-        else if (sentence.Length - 1 == i)
-        {
-            lastIndex = i;
-            break;
-        }
-    }
-
-    for (int i = firstIndex; i <= lastIndex; i++)
-    {
-        word += sentence[i];
-    }
-
-        if (word.Length > 0)
-        {
-            Array.Resize(ref words, words.Length + 1);
-            words[^1] = word;
-        }
-        else
-        {
-            break;
-        }
-  
-  
-    firstIndex = lastIndex + 1;
+    Array.Resize(ref array, array.Length + 1);
+    array[array.Length - 1] = element;
+    return array;
 }
 
 
-Console.WriteLine(words.Length);
+static int[] Remove(int[] array, int element)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+
+        if (array[i] == element)
+        {
+            int[] newArray = RemoveElement(array, i);
+            return newArray;
+        }
+
+    }
+
+    Console.WriteLine("Element is not found");
+    return array;
+}
+
+
+static int[] RemoveElement(int[] array, int index)
+{
+
+    if (index > array.Length - 1)
+    {
+        Console.WriteLine("Out of range ");
+        return array;
+    }
+
+    int[] newArray = new int[array.Length - 1];
+
+
+    int secondIndexer = 0;
+    for (int i = 0; i < array.Length ; i++)
+    {
+        if (i != index)
+        {
+            newArray[secondIndexer] = array[i];
+            secondIndexer++;
+        }
+    }
+
+    return newArray;
+}
+
+
+static string[] CopyArray(string[] array)
+{
+    string[] newArray = new string[array.Length];
+
+    for (int i = 0; i < array.Length; i++)
+    {
+        newArray[i] = array[i];
+    }
+
+    return newArray;
+
+}
+
+static int FindMax(int[] array)
+{
+    if (array.Length == 0)
+    {
+        Console.WriteLine("array is empty");
+        return 0;
+    }
+
+    int max = array[0];
+
+    foreach (var item in array)
+    {
+        if (max < item)
+            max = item;
+    }
+
+    return max;
+}
+static int FindMin(int[] array)
+{
+    if (array.Length == 0)
+    {
+        Console.WriteLine("array is empty");
+        return 0;
+    }
+
+    int min = array[0];
+
+    foreach (var item in array)
+    {
+        if (min > item)
+            min = item;
+    }
+
+    return min;
+}
+
